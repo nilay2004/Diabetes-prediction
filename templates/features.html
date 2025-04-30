@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-gray-100 font-sans">
+    <nav class="bg-gray-800 text-white p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-lg font-bold">Diabetes Prediction</div>
+            <div class="relative">
+                <button id="dropdownButton" class="focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <ul id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white text-gray-800 rounded-md shadow-lg">
+                    <li><a href="/" class="block px-4 py-2 hover:bg-gray-200">Home</a></li>
+                    <li><a href="/features" class="block px-4 py-2 hover:bg-gray-200">Features</a></li>
+                    <li><a href="/comparison" class="block px-4 py-2 hover:bg-gray-200">Model Comparison</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto mt-8 px-4">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Features Used</h1>
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <ul class="list-disc pl-6">
+                <li><strong>Pregnancies</strong>: Number of times pregnant</li>
+                <li><strong>Glucose</strong>: Plasma glucose concentration</li>
+                <li><strong>Blood Pressure</strong>: Diastolic blood pressure (mm Hg)</li>
+                <li><strong>Skin Thickness</strong>: Triceps skin fold thickness (mm)</li>
+                <li><strong>Insulin</strong>: 2-Hour serum insulin (mu U/ml)</li>
+                <li><strong>BMI</strong>: Body mass index</li>
+                <li><strong>Diabetes Pedigree Function</strong>: Diabetes pedigree function</li>
+                <li><strong>Age</strong>: Age in years</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

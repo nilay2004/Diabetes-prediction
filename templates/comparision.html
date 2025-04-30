@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Comparison</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1f2937;
+        }
+        .container-shadow {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <nav class="bg-white p-4 shadow-sm">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-gray-800">Diabetes Prediction</h1>
+            <div class="relative">
+                <button id="dropdownButton" class="flex items-center space-x-2 text-gray-600 hover:text-gray-800 focus:outline-none">
+                    <span>Menu</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+                <ul id="dropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg z-10">
+                    <li><a href="/" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-t-lg">Home</a></li>
+                    <li><a href="/features" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Features</a></li>
+                    <li><a href="/comparison" class="block px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-b-lg">Model Comparison</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto mt-10 px-4">
+        <h1 class="text-3xl font-bold text-gray-800 text-center mb-8">Model Comparison</h1>
+        <div class="bg-white p-6 rounded-lg container-shadow">
+            <img src="/static/visualizations/model_comparison.png" alt="Model Comparison" class="w-full h-auto mb-4 rounded-lg">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Accuracies</h2>
+            <ul class="list-disc pl-6 space-y-2 text-gray-700">
+                {% for model, accuracy in accuracies.items() %}
+                    <li>{{ model }}: {{ '%.2f'|format(accuracy*100) }}%</li>
+                {% endfor %}
+            </ul>
+            <div id="comparison-chart" class="mt-6">
+                <canvas id="comparison-canvas" class="w-full h-64"></canvas>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('comparison-canvas').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {{ accuracies|keys|list|tojson }},
+                    datasets: [{
+                        label: 'Accuracy (%)',
+                        data: {{ accuracies|values|list|tojson|replace('null', '0') }},
+                        backgroundColor: ['#3b82f6', '#60a5fa', '#93c5fd'],
+                        borderColor: ['#2563eb', '#3b82f6', '#60a5fa'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: { y: { beginAtZero: true, max: 100 } },
+                    responsive: true,
+                    plugins: { legend: { position: 'top' } }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
